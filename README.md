@@ -4,5 +4,6 @@ Responsive
 
 
 i Just Tried to Keep It Simple
-no Git Commits / No External php Files / No Try to Add Complex Codes and features
+no Fundamental Git Commits / No External php Files / No Try to Add Complex Codes and features
 
+![guessitpreview](/preview.png "GuessTheNumber")
