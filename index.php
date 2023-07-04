@@ -2,7 +2,7 @@
 
 // decrypt cookie
 if(isset($_COOKIE['guessIt']))
-    $cheater = openssl_decrypt($_COOKIE['guessIt'],'aes-128-cbc','gogetit',0,'go12345678910111');
+    $decryptedGuessIt = openssl_decrypt($_COOKIE['guessIt'],'aes-128-cbc','gogetit',0,'go12345678910111');
 
 // check if form have value
 if(isset($_POST['input']))
@@ -12,29 +12,29 @@ $ans = array('it is bigger, lower it','it is smaller, increase it','What!! You C
 // if both number to guess and input are valid
 if(!empty($input) && isset($_COOKIE['guessIt']))
     switch ($input){
-        case $input > $cheater:
+        case $input > $decryptedGuessIt:
             $turn = 0; // it is bigger
             setcookie('times',--$_COOKIE['times']);
             break;
-        case $input < $cheater:
+        case $input < $decryptedGuessIt:
             $turn = 1; // it is smaller
             setcookie('times',--$_COOKIE['times']);
             break;
-        case $input == $cheater:
+        case $input == $decryptedGuessIt:
             $turn = 2; // you won
             $_COOKIE['times'] = 0;
             break;
     }
 
-// check if answer is set(game started), answer is not equal to "you won"  & your left times to try is zero
+// check losing condition : do if left turns is set AND result != you won AND left times != 0
 if(isset($turn) && $turn != 2 && $_COOKIE['times'] == 0)
     $turn = 3; // you lost
 
-// check if cookies are not set or your left times are 0 to start a new game
+// check new game condition : do if left times is not set OR guessIt is not set OR left times == 0
 if(!isset($_COOKIE['times']) || !isset($_COOKIE['guessIt']) || 0 == $_COOKIE['times']){
     $guessIt = rand(1,100); // between 1 to 100
 
-    // encrypt cookie
+    // initial cookie encryption
     $guessIt = openssl_encrypt($guessIt,'aes-128-cbc','gogetit',0,'go12345678910111');
 
     setcookie("guessIt", $guessIt , time() + 3600, '/'); // 1 hour
