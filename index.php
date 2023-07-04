@@ -1,8 +1,9 @@
 <?php
 
 // decrypt cookie
-if(isset($_COOKIE['guessIt']))
-    $decryptedGuessIt = openssl_decrypt($_COOKIE['guessIt'],'aes-128-cbc','gogetit',0,'go12345678910111');
+if(isset($_COOKIE['guessIt'])){
+    $decryptedGuessIt = openssl_decrypt($_COOKIE['guessIt'],'aes-128-cbc','gogetit',0,'go12345678910111'); // just a simple encryption
+    // $decryptedTimes = openssl_decrypt($_COOKIE['times'],'aes-128-cbc','gogetit',0,'go12345678910111'); // it is inactive yet
 
 // check if form have value
 if(isset($_POST['input']))
